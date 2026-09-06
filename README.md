@@ -1,8 +1,8 @@
-# 🎬 Minh Frame — Portfolio Website
+# 🎬 Kenny Hoang — Portfolio Website
 
 Website portfolio cá nhân cho video editor freelance. Xây dựng với **Next.js 16**, **TypeScript**, **Tailwind CSS v4**. Sẵn sàng deploy lên Vercel.
 
-**Demo:** [minhframe.vercel.app](https://minhframe.vercel.app) *(sau khi deploy)*
+**Demo:** [kennyhoang.vercel.app](https://kennyhoang.vercel.app) *(sau khi deploy)*
 
 ---
 
