@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — Paint Drawing Style
+   Inspired by: Kenny Hoang - Talking Head Editor
+   ============================================================ */
+@theme {
+  /* Colors */
+  --color-canvas: #FAF5E8;
+  --color-canvas-card: #FFFDF5;
+  --color-ink: #23201C;
+  --color-ink-soft: #59544D;
+  --color-ink-faint: #8C867C;
+  --color-terracotta: #C8553D;
+  --color-warm-amber: #E49852;
+  --color-olive-sage: #7A8471;
+  --color-sketch-border: #2B2621;
+
+  /* Fonts */
+  --font-serif-display: var(--font-newsreader), Georgia, serif;
+  --font-sans-body: var(--font-bricolage), system-ui, sans-serif;
+  --font-mono-art: var(--font-jetbrains), monospace;
+  --font-handwriting: var(--font-caveat), cursive;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+/* Tailwind Preflight already handles base resets */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Paper canvas background with subtle grain dot pattern */
+body {
+  font-family: var(--font-sans-body);
+  color: #23201C;
+  min-height: 100vh;
+  background-color: #FAF5E8;
+  background-image:
+    radial-gradient(#dfd6c0 0.75px, transparent 0.75px),
+    radial-gradient(#e8dfcd 0.75px, #FAF5E8 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #C8553D;
+  color: #FAF5E8;
+}
+
+*:focus-visible {
+  outline: 2px solid #C8553D;
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #FAF5E8; }
+::-webkit-scrollbar-thumb { background: #2B2621; border-radius: 0; }
+
+/* ============================================================
+   SKETCH / HAND-DRAWN ELEMENTS
+   ============================================================ */
+
+/* Wobbly organic border — simulates hand-drawn rectangles */
+.sketch-box {
+  border: 2px solid #2B2621;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.sketch-card {
+  border: 2px solid #2B2621;
+  border-radius: 240px 18px 250px 14px / 16px 245px 18px 235px;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.sketch-card:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  box-shadow: 6px 8px 0px 0px rgba(43, 38, 33, 0.85);
+}
+
+.sketch-btn {
+  border: 2px solid #2B2621;
+  border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  transition: all 0.2s ease;
+}
+.sketch-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 4px 0px 0px #2B2621;
+}
+
+/* Painterly warm-amber brush underline behind text */
+.brush-underline {
+  position: relative;
+  display: inline;
+}
+.brush-underline::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  bottom: -4px;
+  width: 104%;
+  height: 9px;
+  background: #E49852;
+  opacity: 0.5;
+  z-index: -1;
+  border-radius: 120px 20px 180px 12px / 10px 120px 14px 140px;
+  transform: rotate(-0.8deg);
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+  border-bottom: 2px solid #2B2621;
+  background-color: rgba(250, 245, 232, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   VIDEO CARDS — 9:16 Portrait
+   ============================================================ */
+.video-card {
+  border: 2px solid #2B2621;
+  background-color: #FFFDF5;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 5px 0px #2B2621;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0px #2B2621;
+}
+.video-card:hover .card-title {
+  color: #C8553D;
+}
+.video-card:hover .play-cross {
+  transform: rotate(90deg);
+  background-color: #C8553D;
+  color: #FAF5E8;
+}
+.video-card:hover .thumb-img {
+  transform: scale(1.05);
+}
+
+.play-cross {
+  width: 44px;
+  height: 44px;
+  background-color: rgba(250, 245, 232, 0.95);
+  border: 2px solid #2B2621;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 0px #2B2621;
+  transition: all 0.3s ease;
+  font-family: var(--font-serif-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  color: #23201C;
+}
+
+.thumb-img {
+  transition: transform 0.7s ease;
+}
+
+/* ============================================================
+   VIDEO MODAL
+   ============================================================ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(35, 32, 28, 0.92);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fade-in-modal 0.2s ease;
+}
+@keyframes fade-in-modal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  animation: modal-in 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.94) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  background: #23201C;
+  border: 2px solid #2B2621;
+}
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.modal-close-btn {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background-color: #FAF5E8;
+  border: 2px solid #2B2621;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #23201C;
+  transition: all 0.2s ease;
+  font-family: var(--font-serif-display);
+  font-size: 1.1rem;
+}
+.modal-close-btn:hover {
+  background-color: #C8553D;
+  color: #FAF5E8;
+}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.1s; }
+.stagger-3 { transition-delay: 0.15s; }
+.stagger-4 { transition-delay: 0.2s; }
+
+/* ============================================================
+   CONTACT CARD
+   ============================================================ */
+.contact-card {
+  background-color: #FFFDF5;
+  padding: 2.5rem;
+  border: 2px solid #2B2621;
+  box-shadow: 4px 6px 0px #2B2621;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 2px solid #2B2621;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.font-serif-display { font-family: var(--font-serif-display); }
+.font-sans-body     { font-family: var(--font-sans-body); }
+.font-mono-art      { font-family: var(--font-mono-art); }
+.font-handwriting   { font-family: var(--font-handwriting); }
