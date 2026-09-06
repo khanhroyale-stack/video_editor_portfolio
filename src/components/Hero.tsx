@@ -12,25 +12,6 @@ export default function Hero() {
       aria-label="Hero section"
     >
       <div className="flex flex-col items-start gap-6 max-w-3xl pt-2">
-        {/* Hand-crafted badge */}
-        <div
-          className="inline-flex items-center gap-2.5 px-3 py-1 sketch-box shadow-[2px_2px_0px_#2B2621]"
-          style={{ backgroundColor: "#FFFDF5" }}
-        >
-          <span
-            className="font-handwriting text-base font-bold"
-            style={{ fontFamily: "var(--font-caveat), cursive", color: "#C8553D" }}
-          >
-            hand-cut &amp; graded
-          </span>
-          <span style={{ color: "#23201C" }}>•</span>
-          <span
-            className="font-mono-art text-xs"
-            style={{ fontFamily: "var(--font-jetbrains), monospace", color: "#59544D" }}
-          >
-            Exclusively DaVinci Resolve
-          </span>
-        </div>
 
         {/* Main headline */}
         <div className="flex flex-col gap-3">
@@ -48,29 +29,6 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Subtitle + wavy SVG flourish */}
-        <div className="flex flex-col gap-3 pt-2">
-          <p
-            className="font-sans-body text-base sm:text-lg max-w-xl leading-relaxed"
-            style={{ fontFamily: "var(--font-bricolage), sans-serif", color: "#59544D" }}
-          >
-            Pacing, clean micro-cuts, authentic presence, and grade DaVinci color.
-          </p>
-
-          {/* Wavy hand-drawn flourish */}
-          <svg
-            className="w-44 h-4 mt-1"
-            style={{ color: "rgba(200,85,61,0.7)" }}
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            viewBox="0 0 160 12"
-            aria-hidden="true"
-          >
-            <path d="M2 7 C25 2, 40 11, 70 6 C100 1, 125 10, 158 5" />
-          </svg>
-        </div>
       </div>
     </section>
   );
